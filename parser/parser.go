@@ -7,6 +7,8 @@ import (
 	"fmt"
 )
 
+// Structure setup
+
 const (
 	_ int = iota
 	LOWEST
@@ -32,6 +34,8 @@ type (
 	prefixParseFn func() ast.Expression
 	infixParseFn func(ast.Expression) ast.Expression
 )
+
+// Initialise the new Parser
 
 func New(l *lexer.Lexer) *Parser {
 	p := &Parser{
@@ -67,6 +71,8 @@ func (p *Parser) ParseProgram() *ast.Program {
 	}
 	return program
 }
+
+// Parsing Functions
 
 func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
@@ -137,6 +143,8 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 func (p *Parser) parseIdentifier() ast.Expression {
 	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 }
+
+// Helper Functions
 
 func (p *Parser) curTokenIs(t token.TokenType) bool {
 	return p.curToken.Type == t
